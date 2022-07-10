@@ -133,11 +133,11 @@ Table of Contents
    Figure 1 shows the data flows between the different RATS roles
    involved in DAA.
 
-     ************       *************   ************   *****************
-     * Endorser *       * Reference *   * Verifier *   * Relying Party *
-     ************       * Value     *   *  Owner   *   *  Owner        *
-          |             * Provider  *   ************   *****************
-          |             *************          |            |
+     .==========.       .===========.   .==========.   .===============.
+     ║ Endorser ║       ║ Reference ║   ║ Verifier ║   ║ Relying Party ║
+     '====+====='       ║ Value     ║   ║  Owner   ║   ║  Owner        ║
+          |             ║ Provider  ║   '======+==='   '====+=========='
+          |             '=========+='          |            |
           |                       |            |            |
           |Endorsements           |Reference   |Appraisal   |Appraisal
           |                       |Values      |Policy      |Policy for
@@ -145,24 +145,24 @@ Table of Contents
           |                       |            |Evidence    |Results
           V                       |            |            |
    .-----------------.            |            |            |
-   |   DAA Issuer    |---------.  |            |            |
-   '-----------------'         |  |            |            |
+   |   DAA Issuer    +---------.  |            |            |
+   '------------+----'         |  |            |            |
      ^          |         Group|  |            |            |
      |          |        Public|  |            |            |
      |Credential|           Key|  |            |            |
      |Request   |              v  v            v            |
      |          |             .----------------------.      |
-     |          |          .->|      Verifier        |--.   |
-     |          |          |  '----------------------'  |   |
-     |          |          |                            |   |
-     |          |          |Evidence         Attestation|   |
-     |          |          |                     Results|   |
-     |          |          |                            |   |
-     |          |Credential|                            |   |
-     |          |          |                            |   |
-     |          v          |                            v   v
+     |          |         .-->+      Verifier        +--.   |
+     |          |         |   '----------------------'  |   |
+     |          |         |                             |   |
+     |          |         |Evidence          Attestation|   |
+     |          |         |                      Results|   |
+     |          |         |                             |   |
+     |      Cred|ential   |                             |   |
+     |          |         |                             |   |
+     |          v         |                             v   v
      |        .-------------.                     .---------------.
-     '--------|  Attester   |                     | Relying Party |
+     '--------+  Attester   |                     | Relying Party |
               '-------------'                     '---------------'
 
                           Figure 1: DAA data flows
