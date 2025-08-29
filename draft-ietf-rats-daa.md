@@ -185,28 +185,22 @@ In order to ensure an appropriate conveyance of Evidence via interaction models 
 
 Attestation Evidence Authenticity:
 
-: Attestation Evidence MUST be correct and authentic.
+: Attestation Evidence MUST authentic.
 
 : In order to provide proofs of authenticity, Attestation Evidence SHOULD be cryptographically associated with an identity document that is a randomized DAA credential.
 
-The following information elements define extensions for corresponding information elements defined in {{-models}}, which are vital to all types of reference interaction models.
+The following information element defines extensions for corresponding information elements defined in {{-models}}, which are vital to all types of reference interaction models.
 Varying from solution to solution, generic information elements can be either included in the scope of protocol messages (instantiating Conceptual Messages defined by the RATS architecture) or can be included in additional protocol parameters of protocols that facilitate the conveyance of RATS Conceptual Messages.
-Ultimately, the following information elements are required by any kind of scalable remote attestation procedure using DAA with one of RATS's reference interaction models.
+Ultimately, the following information element is required by any kind of scalable remote attestation procedure using DAA with one of RATS's reference interaction models.
 
-Attester Identity ('attesterIdentity'):
-
-: *mandatory*
-
-: In DAA, the Attester's identity is not revealed to the Verifier. The Attester is issued with a credential by the DAA Issuer that is randomized and then used to anonymously confirm the validity of their evidence.
-The evidence is verified using the DAA Issuer’s group public key.
-
-Authentication Secret IDs ('authSecID'):
+Attesting Environment IDs ('attEnvIDs'):
 
 : *mandatory*
 
-: In DAA, Authentication Secret IDs are represented by the DAA Issuer’s group public key that MUST be used to create DAA credentials for the corresponding Authentication Secrets used to protect Evidence.
+: In DAA, the Attesting Environment's identity is not revealed to the Verifier. Attesting Environments MUST be issued with a credential by the DAA Issuer that is randomized and then used to anonymously confirm the validity of their Evidence.
+Corresponding Evidence is appraised using the DAA Issuer’s group public key.
 
-: In DAA, an Authentication Secret ID does not identify a unique Attesting Environment but is associated with a group of Attesting Environments.
+: In DAA, Attesting Environment ID does not identify a unique Attesting Environment but is associated with a group of Attesting Environments.
 This is because an Attesting Environment should not be distinguishable and the DAA credential which represents the Attesting Environment is randomized each time it used.
 
 # Privacy Considerations
