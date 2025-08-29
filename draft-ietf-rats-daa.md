@@ -10,20 +10,16 @@ stream: IETF
 kw: Internet-Draft
 cat: info
 
-# colour neighbour randomise
-# [OXFORD_SPELLING_Z_NOT_S] Would you like to use the Oxford spelling “randomize”? The spelling ‘randomise’ is also correct. -> (randomize)
-
 venue:
   group: Remote ATtestation ProcedureS (rats)
   mail: rats@ietf.org
   github: ietf-rats-wg/draft-ietf-rats-daa
 
-
 author:
 - name: Henk Birkholz
   org: Fraunhofer SIT
   abbrev: Fraunhofer SIT
-  email: henk.birkholz@sit.fraunhofer.de
+  email: henk.birkholz@ietf.contact
   street: Rheinstrasse 75
   code: '64295'
   city: Darmstadt
@@ -34,6 +30,9 @@ author:
 - name: Liqun Chen
   org: University of Surrey
   email: liqun.chen@surrey.ac.uk
+- name: Thanassis Giannetsos
+  org: Ubitech
+  email: agiannetsos@ubitech.eu
 - name: Dave Thaler
   org: Microsoft
   email: dthaler@microsoft.com
@@ -42,9 +41,10 @@ author:
 normative:
   RFC5280:
   DAA: DOI.10.1145/1030083.1030103
+  BCP205:
 
 informative:
-  I-D.ietf-rats-architecture: RATS
+  RFC9334: RATS
   I-D.ietf-rats-reference-interaction-models: models
   PBA: DOI.10.1007/978-3-540-85886-7_3
 
@@ -208,6 +208,55 @@ Authentication Secret IDs ('authSecID'):
 
 : In DAA, an Authentication Secret ID does not identify a unique Attesting Environment but is associated with a group of Attesting Environments.
 This is because an Attesting Environment should not be distinguishable and the DAA credential which represents the Attesting Environment is randomized each time it used.
+
+# Implementation Status
+
+Note to RFC Editor: Please remove this section as well as references to {{BCP205}} before AUTH48.
+
+This section records the status of known implementations of the protocol defined by this specification at the time of posting of this Internet-Draft, and is based on a proposal described in {{BCP205}}.
+The description of implementations in this section is intended to assist the IETF in its decision processes in progressing drafts to RFCs.
+Please note that the listing of any individual implementation here does not imply endorsement by the IETF.
+Furthermore, no effort has been spent to verify the information presented here that was supplied by IETF contributors.
+This is not intended as, and must not be construed to be, a catalog of available implementations or their features.
+Readers are advised to note that other implementations may exist.
+
+According to {{BCP205}},
+"this will allow reviewers and working groups to assign due consideration to documents that have the benefit of running code, which may serve as evidence of valuable experimentation and feedback that have made the implemented protocols more mature.
+It is up to the individual working groups to use this information as they see fit".
+
+## Implementer
+
+The open-source implementation was initiated and is maintained by Ubitech.
+
+## Implementation Name
+
+The open-source implementation is named "TPM Direct Anonymous Attestation (DAA) Library".
+
+## Implementation URL
+
+The open-source implementation project resource can be located via: <https://github.com/ubitech/daa>
+
+## Maturity
+
+The code's level of maturity is considered to be "production".
+
+## Coverage and Version Compatibility
+
+The current version ('ce85eb1') implements a C library and reference implementation of Direct Anonymous Attestation (DAA) targeting TPM 2.0–equipped platforms and the IBM TPM 2.0 simulator.
+
+## License
+
+The Ubitech DAA  project and all corresponding code and data maintained on GitHub are provided under the MIT license.
+
+## Implementation Dependencies
+
+The implementation requires the use of the Trusted Computing Group (TCG) Trusted Software Stack (TSS), and an HSM interoperable with the Trusted Platform Module Library specifications, e.g., a Trusted Platform Module (TPM) 2.0 or equivalent implementation.
+The corresponding project resources (code and data) for Linux-based operating systems are maintained on GitHub at <https://github.com/tpm2-software/tpm2-tss/>.
+
+## Contact
+
+Thanassis Giannetsos (agiannetsos@ubitech.eu)
+
 
 # Privacy Considerations
 
