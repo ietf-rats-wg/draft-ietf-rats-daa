@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2022-02-01T00:52:30.306717+00:00",
+  "timestamp": "2025-08-31T01:26:07.287218+00:00",
   "repo": "ietf-rats-wg/draft-ietf-rats-daa",
   "labels": [
     {
@@ -55,17 +55,443 @@
       "id": "I_kwDOGeJzQM5CmUuf",
       "title": "freshness",
       "url": "https://github.com/ietf-rats-wg/draft-ietf-rats-daa/issues/1",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "thomas-fossati",
-      "authorAssociation": "NONE",
+      "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "How is freshness achieved in DAA without compromising the main security goal (i.e., anonymity)?  I think the document should explain that clearly.",
       "createdAt": "2022-01-28T12:20:57Z",
-      "updatedAt": "2022-01-28T12:21:42Z",
+      "updatedAt": "2025-08-29T15:09:26Z",
+      "closedAt": "2025-08-29T15:09:25Z",
+      "comments": [
+        {
+          "author": "Liqun-Chen",
+          "authorAssociation": "NONE",
+          "body": "In most regards, DAA is a normal signature, so it can be used in a challenge-response protocol with a nonce from a verifier or by adding a time-stamp to achieve freshness. The anonymity of the DAA signature is not affected. If necessary, this can be made clearer in the document.",
+          "createdAt": "2022-02-01T11:58:01Z",
+          "updatedAt": "2022-02-01T11:58:01Z"
+        },
+        {
+          "author": "thomas-fossati",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "I'm thinking about the possibility that the challenger injects identifying information in to the nonce (e.g., the network address of the attester it is connected to).  And that identifying information is sealed into the produced Evidence and can be consumed at a later time by a third party to reveal the attester.  Is the assumed trust/threat model such that the challenger cannot be an attacker in any case?  I'd think so, but it's better to state that explicitly.",
+          "createdAt": "2022-02-01T12:58:28Z",
+          "updatedAt": "2022-02-01T12:58:28Z"
+        },
+        {
+          "author": "nedmsmith",
+          "authorAssociation": "NONE",
+          "body": "The Attester can retain anonymity if it doesn't reveal any identifying / instance information (such as ip addr). If that is the case, the challenger will not be able to arrive at a nonce value that can distinguish between a first and second Attester vs. two instances of the first Attester. This means the nonce is no better than random at distinguishing between different Attesters and the same Attester. Since, the conveyance protocol might disclose a conveyance endpoint identifying information, some form of obfuscation of such identifiers is needed such as TOR for IP networks. ",
+          "createdAt": "2022-02-01T16:13:08Z",
+          "updatedAt": "2022-02-01T16:13:08Z"
+        },
+        {
+          "author": "henkbirkholz",
+          "authorAssociation": "MEMBER",
+          "body": "Stale & addressed",
+          "createdAt": "2025-08-29T15:09:25Z",
+          "updatedAt": "2025-08-29T15:09:25Z"
+        }
+      ]
+    },
+    {
+      "number": 6,
+      "id": "I_kwDOGeJzQM6N7J-f",
+      "title": "DAA Issuer role description is confusing",
+      "url": "https://github.com/ietf-rats-wg/draft-ietf-rats-daa/issues/6",
+      "state": "OPEN",
+      "author": "nedmsmith",
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "Current text:\r\n\"The Join Protocol is essentially an enrollment protocol that consumes\r\n   Evidence from the Attester (therefore the mapping to the Verifier\r\n   role).  Corresponding Appraisal Policies for Evidence specific to the\r\n   Join Protocol are used to produce Attestation Results to decide\r\n   whether to issue a DAA credential to an Attester or not (therefore\r\n   the mapping to the Relying Party role).\"\r\n\r\nand\r\n\"The DAA Issuer acts as the Endorser for the Group Public Key that is\r\n   used by the Verifier for the appraisal of evidence of anonymized\r\n   Attesters that use the DAA credentials and associated key material to\r\n   produce Evidence.\"\r\n\r\nThis seems to suggest that Endorser, Verifier, and RP entities all have to be the same entity for join and sign protocols to work. However, this seems unnecessarily complex and may not align well with actual supply chain entities.\r\n\r\nConsider the case where a supplier manufactures 1M instances of device X and provisions a group signing key K to all the device instances. If Evidence is signed using key K, then verifiers seeking to prove integrity of evidence signed by K(private) uses K(public) contained in a certificate issued by the supplier's chosen CA. \r\n\r\nThe verifier doesn't know which of the 1M devices signed evidence with K(private). Therefore, the verifier can't collude to reveal with Attester has which Evidence. If Evidence also contains only class identifiers, then all 1M devices will produce the same evidence. \r\n\r\nThe signatures will be different, but there is no way for the verifier to distinguish which signature belongs to which attester (within the group).\r\n\r\nThis approach means the DAA Issuer need only be implemented by the Endorser role. The join protocol is implemented only by the 1M Attesters. There's no reason for verifier / RP to participate in the join protocol.\r\n\r\n",
+      "createdAt": "2024-06-28T20:03:08Z",
+      "updatedAt": "2024-06-28T20:03:08Z",
       "closedAt": null,
       "comments": []
     }
   ],
-  "pulls": []
+  "pulls": [
+    {
+      "number": 2,
+      "id": "PR_kwDOGeJzQM47JVAQ",
+      "title": "I read the draft.",
+      "url": "https://github.com/ietf-rats-wg/draft-ietf-rats-daa/pull/2",
+      "state": "MERGED",
+      "author": "cabo",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "A few bits of kramdown-rfc housekeeping, typos, missing commas,\r\nreference fixes.\r\n\r\nPlease update your local systems to kramdown-rfc 1.6.14 in case the\r\nbugs recently introduced on bib.ietf.org bite.\r\n\r\nThe dialect was mixed; I normalized to British English.\r\n(Please fix this to American English :-)\r\n\r\nI didn't try to address the BCP14 usage; some of the MUSTs are not\r\ninteroperability mandates, but more like general statements about what\r\nwould be good for the state of the world.\r\n\r\nThe HTML/PDF rendering of Figure 1 would benefit from aasvg; I didn't\r\nmake the necessary changes because I don't know if you have that\r\ninstalled (npm install -g aasvg).",
+      "createdAt": "2022-07-09T20:33:10Z",
+      "updatedAt": "2022-07-10T13:30:24Z",
+      "baseRepository": "ietf-rats-wg/draft-ietf-rats-daa",
+      "baseRefName": "main",
+      "baseRefOid": "6d468b0f912c5da06b53055d0805461bd8e4ff5c",
+      "headRepository": "cabo/draft-ietf-rats-daa",
+      "headRefName": "read",
+      "headRefOid": "f9a245f590541d7211b70954d24c1935f3d1dbd0",
+      "closedAt": "2022-07-10T13:30:24Z",
+      "mergedAt": "2022-07-10T13:30:24Z",
+      "mergedBy": "henkbirkholz",
+      "mergeCommit": {
+        "oid": "8ced65e50d865ceca5667403e243d4fdf64d9331"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOGeJzQM49nBD2",
+          "commit": {
+            "abbreviatedOid": "f9a245f"
+          },
+          "author": "henkbirkholz",
+          "authorAssociation": "MEMBER",
+          "state": "APPROVED",
+          "body": "Open items:\r\n\r\nreview BCP14 statements and then WGLC? Will assess at IETF 114",
+          "createdAt": "2022-07-10T13:30:04Z",
+          "updatedAt": "2022-07-10T13:30:04Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 3,
+      "id": "PR_kwDOGeJzQM47JzwJ",
+      "title": "Turn graphics into aasvg",
+      "url": "https://github.com/ietf-rats-wg/draft-ietf-rats-daa/pull/3",
+      "state": "MERGED",
+      "author": "cabo",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2022-07-10T13:46:03Z",
+      "updatedAt": "2022-07-10T13:47:03Z",
+      "baseRepository": "ietf-rats-wg/draft-ietf-rats-daa",
+      "baseRefName": "main",
+      "baseRefOid": "8ced65e50d865ceca5667403e243d4fdf64d9331",
+      "headRepository": "cabo/draft-ietf-rats-daa",
+      "headRefName": "aasvg",
+      "headRefOid": "2f4794483212b9534866caf2a4b8c0580f10fcba",
+      "closedAt": "2022-07-10T13:47:03Z",
+      "mergedAt": "2022-07-10T13:47:03Z",
+      "mergedBy": "henkbirkholz",
+      "mergeCommit": {
+        "oid": "5350bdadd4faee5dfd60287b8c089019992445e9"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOGeJzQM49nBhV",
+          "commit": {
+            "abbreviatedOid": "2f47944"
+          },
+          "author": "henkbirkholz",
+          "authorAssociation": "MEMBER",
+          "state": "APPROVED",
+          "body": "Thomas would approve. Yes.",
+          "createdAt": "2022-07-10T13:46:55Z",
+          "updatedAt": "2022-07-10T13:46:55Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 4,
+      "id": "PR_kwDOGeJzQM5LsAkA",
+      "title": "Mapping to RATS via introducing DAA Issuer as a protocol entity",
+      "url": "https://github.com/ietf-rats-wg/draft-ietf-rats-daa/pull/4",
+      "state": "MERGED",
+      "author": "henkbirkholz",
+      "authorAssociation": "MEMBER",
+      "assignees": [],
+      "labels": [],
+      "body": "first draft",
+      "createdAt": "2023-03-09T15:19:41Z",
+      "updatedAt": "2023-03-10T22:02:04Z",
+      "baseRepository": "ietf-rats-wg/draft-ietf-rats-daa",
+      "baseRefName": "main",
+      "baseRefOid": "5350bdadd4faee5dfd60287b8c089019992445e9",
+      "headRepository": "ietf-rats-wg/draft-ietf-rats-daa",
+      "headRefName": "arch-proto-mapping",
+      "headRefOid": "db80a0f66752ec571f5c01e25a24b79fd2bda9d1",
+      "closedAt": "2023-03-10T22:02:03Z",
+      "mergedAt": "2023-03-10T22:02:03Z",
+      "mergedBy": "henkbirkholz",
+      "mergeCommit": {
+        "oid": "30d23a95511e677337a76cd1e4b7747b4db5d3f8"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOGeJzQM5Pe29D",
+          "commit": {
+            "abbreviatedOid": "805cb6d"
+          },
+          "author": "dthaler",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-03-09T18:26:25Z",
+          "updatedAt": "2023-03-09T18:32:05Z",
+          "comments": [
+            {
+              "originalPosition": 14,
+              "body": "```suggestion\r\nTo accomplish that goal, the protocol entity DAA Issuer as described in {{DAA}} is introduced and its duties as well as its mappings with other RATS roles are specified.\r\n```",
+              "createdAt": "2023-03-09T18:26:25Z",
+              "updatedAt": "2023-03-09T18:32:05Z"
+            },
+            {
+              "originalPosition": 29,
+              "body": "```suggestion\r\nTwo protocols as described in {{DAA}} are illustrated: the Join Protocol and the DAA-Signing Protocol. This section specifies the mapping of the protocol entity DAA Issuer described in {{DAA}} as an actor in the Join Protocol as well as an actor in the corresponding DAA-Signing Protocol to roles specified in the RATS Architecture.\r\n```\r\nimprove readability",
+              "createdAt": "2023-03-09T18:27:01Z",
+              "updatedAt": "2023-03-09T18:32:05Z"
+            },
+            {
+              "originalPosition": 31,
+              "body": "```suggestion\r\nIn the Join Protocol, the protocol entity DAA Issuer takes on the RATS roles of Verifier and associated Relying Party. The mapping is illustrated in Figure {{join-mapping}}.\r\n```\r\nreadability suggestion",
+              "createdAt": "2023-03-09T18:28:29Z",
+              "updatedAt": "2023-03-09T18:32:05Z"
+            },
+            {
+              "originalPosition": 95,
+              "body": "My opinion is that the Attestation Results (not the Evidence per se) is what is used to decide whether to issue a DAA credential to an Attester.   Conceptually, the Evidence is verified, and the result (which may simply be an API call) passes the Attestation Result to the component issuing the credential.",
+              "createdAt": "2023-03-09T18:30:07Z",
+              "updatedAt": "2023-03-09T18:32:05Z"
+            },
+            {
+              "originalPosition": 132,
+              "body": "```suggestion\r\nIn consequence, DAA provides a signature scheme that allows the privacy of users that are associated with an Attester (e.g., its owner) to be maintained.\r\n```",
+              "createdAt": "2023-03-09T18:30:37Z",
+              "updatedAt": "2023-03-09T18:32:05Z"
+            },
+            {
+              "originalPosition": 136,
+              "body": "```suggestion\r\nThe DAA Issuer uses a private/public key pair to generate credentials for a group of Attesters <!-- this could be phrased a bit confusing as below it is stated that the key-pair is used for a group of Attesters --> and makes the public key (in the form of a public key certificate) available to the Verifier in order to enable it to validate the Evidence received.\r\n```",
+              "createdAt": "2023-03-09T18:30:59Z",
+              "updatedAt": "2023-03-09T18:32:05Z"
+            },
+            {
+              "originalPosition": 144,
+              "body": "```suggestion\r\nFor DAA, the role of the Endorser is essentially the same, but it now provides Attester endorsements to the DAA Issuer rather than directly to the Verifier. These Attester endorsements enable the Attester to obtain a credential from the DAA Issuer.\r\n```",
+              "createdAt": "2023-03-09T18:31:22Z",
+              "updatedAt": "2023-03-09T18:32:05Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOGeJzQM5Pe8ZF",
+          "commit": {
+            "abbreviatedOid": "805cb6d"
+          },
+          "author": "henkbirkholz",
+          "authorAssociation": "MEMBER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-03-09T18:42:29Z",
+          "updatedAt": "2023-03-09T18:42:30Z",
+          "comments": [
+            {
+              "originalPosition": 95,
+              "body": "Yes. That was me not paying enough attention to the issue. How about this new text?\r\n\r\n```suggestion\r\nThe Join Protocol is essentially an enrollment protocol that consumes Evidence from the Attester (therefore the mapping to the Verifier role). Corresponding Appraisal Policies for Evidence specific to the Join Protocol are used to produce Attestation Results to decide whether to issue a DAA credential to an Attester or not (therefore the mapping to the Relying Party role).\r\n```",
+              "createdAt": "2023-03-09T18:42:29Z",
+              "updatedAt": "2023-03-09T18:42:30Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOGeJzQM5PfZ_B",
+          "commit": {
+            "abbreviatedOid": "805cb6d"
+          },
+          "author": "dthaler",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-03-09T19:35:09Z",
+          "updatedAt": "2023-03-09T19:35:10Z",
+          "comments": [
+            {
+              "originalPosition": 95,
+              "body": "Looks good, thanks!",
+              "createdAt": "2023-03-09T19:35:09Z",
+              "updatedAt": "2023-03-09T19:35:10Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOGeJzQM5PfaXz",
+          "commit": {
+            "abbreviatedOid": "d18a7e1"
+          },
+          "author": "dthaler",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "Ok to merge after committing Henk's wording proposal.",
+          "createdAt": "2023-03-09T19:35:55Z",
+          "updatedAt": "2023-03-09T19:35:55Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOGeJzQM5PgAOI",
+          "commit": {
+            "abbreviatedOid": "d18a7e1"
+          },
+          "author": "nedmsmith",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-03-09T20:54:54Z",
+          "updatedAt": "2023-03-09T20:55:07Z",
+          "comments": [
+            {
+              "originalPosition": 144,
+              "body": "\"Attester endorsements\" is a confusing term. Since the DAA Issuer contains a Verifier, the RATS Arch roles and conceptual messages remain consistent. The Attester Evidence is what convinces the DAA Issuer to issue a group credential. The group credential is new form of Endorsement that is created in response to an internal Attestation Result. I don't believe the draft needs to use the term \"Attester endorsement\" and lower case \"endoorsement\" seems like a misuse of the expected capitalization convention.",
+              "createdAt": "2023-03-09T20:54:54Z",
+              "updatedAt": "2023-03-09T20:55:07Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOGeJzQM5PnMcW",
+          "commit": {
+            "abbreviatedOid": "13c35a4"
+          },
+          "author": "henkbirkholz",
+          "authorAssociation": "MEMBER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-03-10T21:51:42Z",
+          "updatedAt": "2023-03-10T21:51:47Z",
+          "comments": [
+            {
+              "originalPosition": 144,
+              "body": "```suggestion\r\nFor DAA, the role of the Endorser is essentially the same, but it now provides Endorsements to the DAA Issuer rather than directly to the Verifier. These Endorsements enable the Attester to obtain a credential from the DAA Issuer.\r\n```",
+              "createdAt": "2023-03-10T21:51:42Z",
+              "updatedAt": "2023-03-10T21:51:48Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOGeJzQM5PnMfn",
+          "commit": {
+            "abbreviatedOid": "13c35a4"
+          },
+          "author": "henkbirkholz",
+          "authorAssociation": "MEMBER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-03-10T21:51:58Z",
+          "updatedAt": "2023-03-10T21:51:59Z",
+          "comments": [
+            {
+              "originalPosition": 144,
+              "body": "```suggestion\r\nFor DAA, the role of the Endorser is essentially the same, but it now provides Endorsements to the DAA Issuer rather than directly to the Verifier. These Endorsements enable the Attester to obtain a credential from the DAA Issuer.\r\n```",
+              "createdAt": "2023-03-10T21:51:58Z",
+              "updatedAt": "2023-03-10T21:51:59Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 5,
+      "id": "PR_kwDOGeJzQM5xNJqP",
+      "title": "remove redundant \"Figure\"",
+      "url": "https://github.com/ietf-rats-wg/draft-ietf-rats-daa/pull/5",
+      "state": "MERGED",
+      "author": "thomas-fossati",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "The word \"Figure\" is automatically added when the anchor is a figure element.",
+      "createdAt": "2024-06-01T20:43:47Z",
+      "updatedAt": "2025-08-29T15:10:04Z",
+      "baseRepository": "ietf-rats-wg/draft-ietf-rats-daa",
+      "baseRefName": "main",
+      "baseRefOid": "e95645bb0985e8cb1cb83c0de46b9060ca8e48ba",
+      "headRepository": "thomas-fossati/draft-ietf-rats-daa",
+      "headRefName": "patch-1",
+      "headRefOid": "ec94c0abda2caf423738a64c9180ea94b334805d",
+      "closedAt": "2025-08-29T15:10:04Z",
+      "mergedAt": "2025-08-29T15:10:04Z",
+      "mergedBy": "henkbirkholz",
+      "mergeCommit": {
+        "oid": "97bc369695796ef1f34d2539dd0ae42219a93919"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOGeJzQM685CuM",
+          "commit": {
+            "abbreviatedOid": "ec94c0a"
+          },
+          "author": "henkbirkholz",
+          "authorAssociation": "MEMBER",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-08-29T14:56:20Z",
+          "updatedAt": "2025-08-29T14:56:20Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 7,
+      "id": "PR_kwDOGeJzQM6mAhAV",
+      "title": "Add Ubitech DAA as BCP205 and Thenassis as an editor",
+      "url": "https://github.com/ietf-rats-wg/draft-ietf-rats-daa/pull/7",
+      "state": "MERGED",
+      "author": "henkbirkholz",
+      "authorAssociation": "MEMBER",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2025-08-29T14:55:39Z",
+      "updatedAt": "2025-08-29T15:12:08Z",
+      "baseRepository": "ietf-rats-wg/draft-ietf-rats-daa",
+      "baseRefName": "main",
+      "baseRefOid": "e95645bb0985e8cb1cb83c0de46b9060ca8e48ba",
+      "headRepository": "ietf-rats-wg/draft-ietf-rats-daa",
+      "headRefName": "ubitech-daa",
+      "headRefOid": "ad3e212bebff874d7a2be7cf3db8d3273d5ab964",
+      "closedAt": "2025-08-29T15:12:08Z",
+      "mergedAt": "2025-08-29T15:12:08Z",
+      "mergedBy": "henkbirkholz",
+      "mergeCommit": {
+        "oid": "cf82a58dfe49a1c2cbf59b859be961fbd03a9982"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 8,
+      "id": "PR_kwDOGeJzQM6mAqFL",
+      "title": "Synchronization with current REIM I-D",
+      "url": "https://github.com/ietf-rats-wg/draft-ietf-rats-daa/pull/8",
+      "state": "MERGED",
+      "author": "henkbirkholz",
+      "authorAssociation": "MEMBER",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2025-08-29T15:08:27Z",
+      "updatedAt": "2025-08-29T15:14:32Z",
+      "baseRepository": "ietf-rats-wg/draft-ietf-rats-daa",
+      "baseRefName": "main",
+      "baseRefOid": "e95645bb0985e8cb1cb83c0de46b9060ca8e48ba",
+      "headRepository": "ietf-rats-wg/draft-ietf-rats-daa",
+      "headRefName": "REIM-sync",
+      "headRefOid": "14d5ae7d93a88aa22fbde11ebaf84421e8fa0de7",
+      "closedAt": "2025-08-29T15:14:32Z",
+      "mergedAt": "2025-08-29T15:14:32Z",
+      "mergedBy": "henkbirkholz",
+      "mergeCommit": {
+        "oid": "95c676799b218f159155edaf8dfd7b3735a585c2"
+      },
+      "comments": [],
+      "reviews": []
+    }
+  ]
 }
